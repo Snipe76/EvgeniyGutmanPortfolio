@@ -1,0 +1,149 @@
+/* Reset margin and padding, set box-sizing to border-box, and disable scrolling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+    /* Disable scrolling */
+}
+
+/* Set width and height to 100% for html and body, and disable scrolling */
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    /* Disable scrolling */
+}
+
+/* Set up a flexbox layout for the container and make it fill the height of the viewport */
+.container {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    /* Make the container fill the height of the viewport */
+}
+
+/* Set flex properties for the boxes inside the container */
+.container .box {
+    flex: 1;
+    box-sizing: border-box;
+}
+
+/* Give the first box more space */
+.container .box:first-child {
+    flex: 1.25;
+    /* Give the first box more space */
+}
+
+/* Ensure the image scales with its box */
+.container .box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Ensure the image scales with its box */
+}
+
+/* Style the form inside the second box */
+.container .box form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+/* Center the form design */
+.container .box form .form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+/* Style the form title, paragraph, and labels */
+.container .box form h1,
+.container .box form p,
+.container .box form label {
+    width: 80%;
+    text-align: left;
+}
+
+/* Style the form title */
+.container .box form h1 {
+    text-align: left;
+    font: normal normal 900 43px/63px Heebo;
+    letter-spacing: 0px;
+    color: #020253;
+    opacity: 1;
+}
+
+/* Style the form paragraph */
+.container .box form p {
+    text-align: left;
+    font: normal normal normal 20px/29px Heebo;
+    letter-spacing: 0px;
+    color: #020253;
+    margin-bottom: 5vh;
+    opacity: 1;
+}
+
+/* Style the form labels */
+.container .box form label {
+    text-align: left;
+    font: normal normal bold 16px/24px Heebo;
+    letter-spacing: 0px;
+    color: #2C2C2C;
+    opacity: 1;
+}
+
+/* Style the form design container */
+.container .box .form-design {
+    width: 65%;
+}
+
+/* Style the form input fields */
+.container .box form input[type="text"],
+.container .box form input[type="email"] {
+    margin: 10px 0;
+    padding: 10px;
+    width: 80%;
+    background: #E5EEFF 0% 0% no-repeat padding-box;
+    opacity: 1;
+}
+
+/* Style the form submit button */
+.container .box form input[type="submit"] {
+    padding: 10px 20px;
+    margin-top: 20px;
+    cursor: pointer;
+    background: #020253 0% 0% no-repeat padding-box;
+    color: white;
+    border: none;
+    opacity: 1;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .container .box:first-child {
+        flex: 1;
+        /* Reset flex value */
+    }
+
+    .container .box img {
+        height: auto;
+        /* Adjust height for smaller screens */
+    }
+
+    .container .box form .form-container {
+        width: 100%;
+    }
+
+    .container .box .form-design {
+        width: 65%;
+    }
+}

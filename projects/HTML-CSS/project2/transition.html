@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Good Morning Coffee - Transition</title>
+    <link rel="stylesheet" href="../../../style/main.css">
+    <link rel="stylesheet" href="../../../style/transition-style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+    <script src="../../../script/burger.js" defer></script>
+    <script src="../../../script/theme.js" defer></script>
+</head>
+
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="header-logo">
+                <img class="profile-pic logo" src="../../../images/about-me.jpg" alt="My Profile Picture">
+                <a href="../../../index.html">
+                    <h1 id="header-my-name">Evgeniy Gutman</h1>
+                </a>
+            </div>
+            <nav class="nav" id="nav-links">
+                <div class="nav-item"><a class="nav-link" href="../../../index.html#home">Home</a></div>
+                <div class="nav-item"><a class="nav-link" href="../../../index.html#about">About Me</a></div>
+                <div class="nav-item"><a class="nav-link" href="../../../index.html#projects">Projects</a></div>
+                <div class="nav-item"><a class="nav-link" href="../../../index.html#contact">Contact</a></div>
+            </nav>
+            <div class="header-controls">
+                <button id="theme-toggle-btn" aria-label="Toggle dark/light mode">
+                    <span class="toggle-icon">🌓</span>
+                </button>
+                <button id="burger" aria-label="Toggle menu" aria-expanded="false">≡</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-spacer invisible"></div>
+    <main class="main container">
+        <section id="home">
+            <div id="home-content" class="section-content">
+                <h1 class="section-title">Good Morning Coffee</h1>
+                <!-- <p class="section-paragraph">This is project 1</p> -->
+                <div class="project-buttons">
+                    <a href="../project2.zip" download>
+                        <button class="project-button">Download Project</button>
+                    </a>
+                    <a href="index.html" target="_blank">
+                        <button class="project-button">Open Project</button>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="logos" class="container">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original-wordmark.svg"
+                class="logo" alt="HTML5">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original-wordmark.svg"
+                class="logo" alt="CSS3">
+        </section>
+
+        <section id="project-image-section">
+            <div class="section-content project-image-section">
+                <img src="images/Screenshot.png" alt="Project 2 image" id="project-image-element">
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="container">
+        <p>&copy; 2023 Evgeniy Gutman. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

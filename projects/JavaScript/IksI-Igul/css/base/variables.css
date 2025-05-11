@@ -1,0 +1,70 @@
+:root {
+    /* Colors */
+    --primary-bg: #1a1b26;
+    --secondary-bg: #24283b;
+    --button-bg: #292e42;
+    --button-border: #565f89;
+    --button-hover: #414868;
+    --text-primary: #c0caf5;
+    --text-secondary: #a9b1d6;
+    --text-muted: #787c99;
+
+    /* Game Colors */
+    --x-color: #f7768e;
+    --o-color: #7aa2f7;
+    --tie-color: #e0af68;
+    --computer-mode: #7dcfff;
+    --computer-mode-hover: #89ddff;
+    --human-mode: #9ece6a;
+    --human-mode-hover: #b9f27c;
+    --winner-x-bg: rgba(247, 118, 142, 0.3);
+    --winner-o-bg: rgba(122, 162, 247, 0.3);
+
+    /* Success/Warning/Error Colors */
+    --success-color: #9ece6a;
+    --warning-color: #e0af68;
+    --error-color: #f7768e;
+
+    /* Spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 4rem;
+
+    /* Typography */
+    --font-family: 'Segoe UI', Arial, sans-serif;
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.875rem;
+    --font-size-md: 1rem;
+    --font-size-lg: 1.25rem;
+    --font-size-xl: 1.5rem;
+    --font-size-2xl: 2rem;
+
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-bold: 700;
+
+    /* Layout */
+    --container-max-width: 1200px;
+    --border-radius-sm: 0.25rem;
+    --border-radius-md: 0.5rem;
+    --border-radius-lg: 1rem;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+    --game-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+
+    /* Animations */
+    --animation-timing: cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    --animation-duration-fast: 150ms;
+    --animation-duration-normal: 300ms;
+    --animation-duration-slow: 500ms;
+
+    /* Z-index */
+    --z-index-dropdown: 1000;
+    --z-index-modal: 2000;
+    --z-index-tooltip: 3000;
+}

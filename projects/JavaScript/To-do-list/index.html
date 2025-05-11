@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List App</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <header class="header" role="banner">
+            <h1 class="header__title">My To-Do List</h1>
+            <nav class="header__filters" role="tablist">
+                <button class="header__filter header__filter--active" data-filter="all" role="tab">All</button>
+                <button class="header__filter" data-filter="active" role="tab">Active</button>
+                <button class="header__filter" data-filter="completed" role="tab">Completed</button>
+            </nav>
+        </header>
+
+        <main class="main" role="main">
+            <!-- Lists Panel -->
+            <section class="lists-panel">
+                <div class="lists-panel__header">
+                    <h2 class="lists-panel__title">My Lists</h2>
+                    <button class="lists-panel__new-button" id="new-list-button">+ New List</button>
+                </div>
+                <div class="lists-container" id="lists-container">
+                    <!-- List items will be injected here -->
+                </div>
+            </section>
+
+            <section class="task-list" aria-live="polite"></section>
+            <div class="add-task-container">
+                <button class="add-task-button" aria-label="Add Task">+ Add New Task</button>
+            </div>
+        </main>
+
+        <footer class="footer" role="contentinfo">
+            <!-- Old footer - now hidden in CSS -->
+            <button class="footer__add-task-button" aria-label="Add Task">+</button>
+        </footer>
+    </div>
+
+    <!-- Add/Edit Task Modal -->
+    <dialog class="task-modal" id="task-modal" aria-modal="true">
+        <form method="dialog" class="task-form" id="task-form">
+            <h2 class="task-form__title">Add Task</h2>
+            <label class="task-form__field">
+                <span class="task-form__label">Title</span>
+                <input class="task-form__input" type="text" name="title" required>
+            </label>
+            <label class="task-form__field">
+                <span class="task-form__label">Date</span>
+                <input class="task-form__input" type="date" name="dueDate">
+            </label>
+            <label class="task-form__field">
+                <span class="task-form__label">Time</span>
+                <input class="task-form__input" type="time" name="dueTime">
+            </label>
+            <label class="task-form__field">
+                <span class="task-form__label">Location</span>
+                <input class="task-form__input" type="text" name="location">
+            </label>
+            <label class="task-form__field">
+                <span class="task-form__label">Notes</span>
+                <textarea class="task-form__textarea" name="notes"></textarea>
+            </label>
+            <label class="task-form__field task-form__field--checkbox">
+                <span class="task-form__label">Completed</span>
+                <input class="task-form__checkbox" type="checkbox" name="completed">
+            </label>
+            <menu class="task-form__actions">
+                <button class="task-form__button" type="submit">Save</button>
+                <button class="task-form__button task-form__button--cancel" type="button"
+                    id="cancel-task">Cancel</button>
+            </menu>
+        </form>
+    </dialog>
+
+    <!-- Create New List Modal -->
+    <dialog class="task-modal" id="list-modal" aria-modal="true">
+        <form method="dialog" class="list-form" id="list-form">
+            <h2 class="task-form__title">Create New List</h2>
+            <label class="list-form__field">
+                <span class="task-form__label">List Name</span>
+                <input class="list-form__input" type="text" name="listTitle" required>
+            </label>
+            <menu class="list-form__actions">
+                <button class="list-form__button" type="submit">Save</button>
+                <button class="list-form__button list-form__button--cancel" type="button"
+                    id="cancel-list">Cancel</button>
+            </menu>
+        </form>
+    </dialog>
+
+    <script type="module" src="js/app.js"></script>
+</body>
+
+</html>

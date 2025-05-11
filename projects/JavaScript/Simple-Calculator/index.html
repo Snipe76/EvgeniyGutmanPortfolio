@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Calculator</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Orbitron:wght@400;600&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <div class="calculator-wrapper">
+            <header class="app-header">
+                <h1>Calc<span class="accent">X</span></h1>
+                <div class="header-buttons">
+                    <button id="themeToggle" class="icon-btn" title="Toggle theme">🎨</button>
+                    <button id="settingsBtn" class="icon-btn" title="Settings">⚙️</button>
+                </div>
+            </header>
+
+            <div class="display-container">
+                <div id="expressionDisplay" class="expression-display"></div>
+                <div id="mainDisplay" class="main-display">0</div>
+            </div>
+
+            <div class="calculator-tabs">
+                <button id="scientificTab" class="tab-btn active" data-tab="scientific">Scientific</button>
+                <button id="programmerTab" class="tab-btn" data-tab="programmer">Programmer</button>
+                <button id="converterTab" class="tab-btn" data-tab="converter">Converter</button>
+                <button id="historyTab" class="tab-btn" data-tab="history">History</button>
+            </div>
+
+            <!-- Scientific Calculator Tab -->
+            <div id="scientificPanel" class="calculator-panel active">
+                <div class="calculator-buttons scientific-buttons">
+                    <!-- Memory Functions -->
+                    <button class="btn memory-btn" data-action="memory-clear">MC</button>
+                    <button class="btn memory-btn" data-action="memory-recall">MR</button>
+                    <button class="btn memory-btn" data-action="memory-add">M+</button>
+                    <button class="btn memory-btn" data-action="memory-subtract">M-</button>
+                    <button class="btn memory-btn" data-action="memory-store">MS</button>
+
+                    <!-- Functions Row 1 -->
+                    <button class="btn fn-btn" data-action="percent">%</button>
+                    <button class="btn fn-btn" data-action="clear-entry">CE</button>
+                    <button class="btn fn-btn" data-action="all-clear">C</button>
+                    <button class="btn fn-btn" data-action="delete">⌫</button>
+                    <button class="btn fn-btn" data-value="1/x">1/x</button>
+
+                    <!-- Functions Row 2 -->
+                    <button class="btn fn-btn" data-value="x²">x²</button>
+                    <button class="btn fn-btn" data-value="sqrt(">√</button>
+                    <button class="btn fn-btn" data-value="cbrt(">∛</button>
+                    <button class="btn fn-btn" data-value="^">xʸ</button>
+                    <button class="btn fn-btn" data-value="log(">log</button>
+
+                    <!-- Functions Row 3 -->
+                    <button class="btn fn-btn" data-value="sin(">sin</button>
+                    <button class="btn fn-btn" data-value="cos(">cos</button>
+                    <button class="btn fn-btn" data-value="tan(">tan</button>
+                    <button class="btn fn-btn" data-value="Math.E">e</button>
+                    <button class="btn fn-btn" data-value="ln(">ln</button>
+
+                    <!-- Numbers and Operations -->
+                    <button class="btn digit" data-value="7">7</button>
+                    <button class="btn digit" data-value="8">8</button>
+                    <button class="btn digit" data-value="9">9</button>
+                    <button class="btn operator" data-value="/">÷</button>
+                    <button class="btn fn-btn" data-value="fact(">n!</button>
+
+                    <button class="btn digit" data-value="4">4</button>
+                    <button class="btn digit" data-value="5">5</button>
+                    <button class="btn digit" data-value="6">6</button>
+                    <button class="btn operator" data-value="*">×</button>
+                    <button class="btn fn-btn" data-value="((">(</button>
+
+                    <button class="btn digit" data-value="1">1</button>
+                    <button class="btn digit" data-value="2">2</button>
+                    <button class="btn digit" data-value="3">3</button>
+                    <button class="btn operator" data-value="-">−</button>
+                    <button class="btn fn-btn" data-value="))">)</button>
+
+                    <button class="btn digit" data-value="0">0</button>
+                    <button class="btn fn-btn" data-value=".">.</button>
+                    <button class="btn fn-btn" data-value="Math.PI">π</button>
+                    <button class="btn operator" data-value="+">+</button>
+                    <button class="btn equals-btn" data-action="calculate">=</button>
+                </div>
+            </div>
+
+            <!-- Programmer Calculator Tab -->
+            <div id="programmerPanel" class="calculator-panel">
+                <div class="number-base-selector">
+                    <button class="base-btn selected" data-base="hex">HEX</button>
+                    <button class="base-btn" data-base="dec">DEC</button>
+                    <button class="base-btn" data-base="oct">OCT</button>
+                    <button class="base-btn" data-base="bin">BIN</button>
+                </div>
+                <div class="bit-display">
+                    <div class="bit-row">
+                        <span>63-32</span>
+                        <div class="bits">00000000 00000000 00000000 00000000</div>
+                    </div>
+                    <div class="bit-row">
+                        <span>31-0</span>
+                        <div class="bits">00000000 00000000 00000000 00000000</div>
+                    </div>
+                </div>
+                <div class="word-size-selector">
+                    <button class="word-btn selected" data-word="qword">QWORD</button>
+                    <button class="word-btn" data-word="dword">DWORD</button>
+                    <button class="word-btn" data-word="word">WORD</button>
+                    <button class="word-btn" data-word="byte">BYTE</button>
+                </div>
+                <div class="calculator-buttons programmer-buttons">
+                    <button class="btn logic-btn" data-value="AND">AND</button>
+                    <button class="btn logic-btn" data-value="OR">OR</button>
+                    <button class="btn logic-btn" data-value="XOR">XOR</button>
+                    <button class="btn logic-btn" data-value="NOT">NOT</button>
+                    <button class="btn logic-btn" data-value="NAND">NAND</button>
+
+                    <button class="btn logic-btn" data-value="NOR">NOR</button>
+                    <button class="btn logic-btn" data-value="XNOR">XNOR</button>
+                    <button class="btn logic-btn" data-value="<<">
+                        <<< /button>
+                            <button class="btn logic-btn" data-value=">>">→</button>
+                            <button class="btn fn-btn" data-action="all-clear">C</button>
+
+                            <button class="btn digit hex-digit" data-value="A">A</button>
+                            <button class="btn digit hex-digit" data-value="B">B</button>
+                            <button class="btn digit hex-digit" data-value="C">C</button>
+                            <button class="btn digit hex-digit" data-value="D">D</button>
+                            <button class="btn fn-btn" data-action="delete">⌫</button>
+
+                            <button class="btn digit hex-digit" data-value="E">E</button>
+                            <button class="btn digit hex-digit" data-value="F">F</button>
+                            <button class="btn digit" data-value="7">7</button>
+                            <button class="btn digit" data-value="8">8</button>
+                            <button class="btn digit" data-value="9">9</button>
+
+                            <button class="btn fn-btn" data-value="(">(</button>
+                            <button class="btn fn-btn" data-value=")">)</button>
+                            <button class="btn digit" data-value="4">4</button>
+                            <button class="btn digit" data-value="5">5</button>
+                            <button class="btn digit" data-value="6">6</button>
+
+                            <button class="btn operator" data-value="*">×</button>
+                            <button class="btn operator" data-value="/">÷</button>
+                            <button class="btn digit" data-value="1">1</button>
+                            <button class="btn digit" data-value="2">2</button>
+                            <button class="btn digit" data-value="3">3</button>
+
+                            <button class="btn operator" data-value="+">+</button>
+                            <button class="btn operator" data-value="-">−</button>
+                            <button class="btn digit" data-value="0">0</button>
+                            <button class="btn fn-btn" data-value=".">.</button>
+                            <button class="btn equals-btn" data-action="calculate">=</button>
+                </div>
+            </div>
+
+            <!-- Unit Converter Tab -->
+            <div id="converterPanel" class="calculator-panel">
+                <div class="converter-controls">
+                    <select id="converterCategory">
+                        <option value="length">Length</option>
+                        <option value="mass">Mass/Weight</option>
+                        <option value="temperature">Temperature</option>
+                        <option value="area">Area</option>
+                        <option value="volume">Volume</option>
+                        <option value="time">Time</option>
+                        <option value="speed">Speed</option>
+                        <option value="pressure">Pressure</option>
+                        <option value="energy">Energy</option>
+                        <option value="data">Data</option>
+                    </select>
+                </div>
+                <div class="converter-inputs">
+                    <div class="convert-from">
+                        <input type="number" id="fromValue" value="1">
+                        <select id="fromUnit"></select>
+                    </div>
+                    <button id="swapUnits" class="swap-btn" title="Swap units">⇄</button>
+                    <div class="convert-to">
+                        <input type="number" id="toValue" disabled>
+                        <select id="toUnit"></select>
+                    </div>
+                </div>
+                <div class="calculator-buttons converter-keypad">
+                    <button class="btn digit" data-input="7">7</button>
+                    <button class="btn digit" data-input="8">8</button>
+                    <button class="btn digit" data-input="9">9</button>
+                    <button class="btn fn-btn" data-action="backspace">⌫</button>
+
+                    <button class="btn digit" data-input="4">4</button>
+                    <button class="btn digit" data-input="5">5</button>
+                    <button class="btn digit" data-input="6">6</button>
+                    <button class="btn fn-btn" data-action="clear">C</button>
+
+                    <button class="btn digit" data-input="1">1</button>
+                    <button class="btn digit" data-input="2">2</button>
+                    <button class="btn digit" data-input="3">3</button>
+                    <button class="btn fn-btn" data-input="-">±</button>
+
+                    <button class="btn digit zero-btn" data-input="0">0</button>
+                    <button class="btn digit" data-input=".">.</button>
+                    <button class="btn fn-btn convert-btn" data-action="convert">Convert</button>
+                </div>
+            </div>
+
+            <!-- History Tab -->
+            <div id="historyPanel" class="calculator-panel">
+                <div class="history-container">
+                    <div class="history-header">
+                        <h3>Calculation History</h3>
+                        <button id="clearHistory" class="clear-btn">Clear All</button>
+                    </div>
+                    <div id="historyList" class="history-list">
+                        <!-- History items will be added here dynamically -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Panel (Not a tab, but a modal overlay) -->
+        <div id="settingsPanel" class="settings-panel">
+            <div class="settings-content">
+                <div class="settings-header">
+                    <h2>Settings</h2>
+                    <button id="closeSettings" class="close-btn">&times;</button>
+                </div>
+                <div class="settings-content-scrollable">
+                    <div class="setting-group">
+                        <h3>Display</h3>
+                        <div class="setting-item">
+                            <label for="fontSizeSlider">Font Size</label>
+                            <div class="slider-container">
+                                <input type="range" id="fontSizeSlider" min="80" max="120" value="100">
+                                <span id="fontSizeValue">100%</span>
+                            </div>
+                        </div>
+                        <div class="setting-item">
+                            <label for="decimalPlaces">Decimal Places</label>
+                            <select id="decimalPlaces">
+                                <option value="auto">Auto</option>
+                                <option value="0">0</option>
+                                <option value="2">2</option>
+                                <option value="4">4</option>
+                                <option value="8">8</option>
+                                <option value="16">16</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="setting-group">
+                        <h3>Appearance</h3>
+                        <div class="setting-item">
+                            <label>Theme</label>
+                            <div class="theme-selector">
+                                <button class="theme-btn active" data-theme="dark">Dark</button>
+                                <button class="theme-btn" data-theme="light">Light</button>
+                                <button class="theme-btn" data-theme="neon">Neon</button>
+                                <button class="theme-btn" data-theme="contrast">High Contrast</button>
+                            </div>
+                        </div>
+                        <div class="setting-item">
+                            <label for="accentColor">Accent Color</label>
+                            <div class="color-picker">
+                                <button class="color-btn active" data-color="#00c3ff"
+                                    style="background-color: #00c3ff;"></button>
+                                <button class="color-btn" data-color="#ff2c6d"
+                                    style="background-color: #ff2c6d;"></button>
+                                <button class="color-btn" data-color="#7b68ee"
+                                    style="background-color: #7b68ee;"></button>
+                                <button class="color-btn" data-color="#00d084"
+                                    style="background-color: #00d084;"></button>
+                                <button class="color-btn" data-color="#ffbd44"
+                                    style="background-color: #ffbd44;"></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="setting-group">
+                        <h3>Behavior</h3>
+                        <div class="setting-item toggle-item">
+                            <label for="angleUnit">Angle Unit</label>
+                            <div class="toggle-container">
+                                <button id="degButton" class="toggle-btn active">DEG</button>
+                                <button id="radButton" class="toggle-btn">RAD</button>
+                            </div>
+                        </div>
+                        <div class="setting-item toggle-item">
+                            <label for="soundToggle">Sound Effects</label>
+                            <label class="switch">
+                                <input type="checkbox" id="soundToggle">
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                        <div class="setting-item toggle-item">
+                            <label for="hapticToggle">Haptic Feedback</label>
+                            <label class="switch">
+                                <input type="checkbox" id="hapticToggle">
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="setting-group">
+                        <h3>Gamification</h3>
+                        <div class="setting-item toggle-item">
+                            <label for="buttonEffectsToggle">Button Effects</label>
+                            <label class="switch">
+                                <input type="checkbox" id="buttonEffectsToggle" checked>
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                        <div class="setting-item toggle-item">
+                            <label for="confettiToggle">Celebration Effects</label>
+                            <label class="switch">
+                                <input type="checkbox" id="confettiToggle" checked>
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="keyboardShortcuts" class="shortcuts-overlay">
+        <div class="shortcuts-content">
+            <h3>Keyboard Shortcuts</h3>
+            <div class="shortcuts-grid">
+                <div class="shortcut-item">
+                    <kbd>0-9</kbd>
+                    <span>Digits</span>
+                </div>
+                <div class="shortcut-item">
+                    <kbd>+</kbd> <kbd>-</kbd> <kbd>*</kbd> <kbd>/</kbd>
+                    <span>Operators</span>
+                </div>
+                <div class="shortcut-item">
+                    <kbd>Enter</kbd>
+                    <span>Calculate</span>
+                </div>
+                <div class="shortcut-item">
+                    <kbd>Backspace</kbd>
+                    <span>Delete</span>
+                </div>
+                <div class="shortcut-item">
+                    <kbd>Esc</kbd>
+                    <span>Clear All</span>
+                </div>
+                <div class="shortcut-item">
+                    <kbd>Ctrl</kbd> + <kbd>Z</kbd>
+                    <span>Undo</span>
+                </div>
+                <div class="shortcut-item">
+                    <kbd>?</kbd>
+                    <span>Show Shortcuts</span>
+                </div>
+            </div>
+            <button id="closeShortcuts" class="close-shortcuts-btn">Close</button>
+        </div>
+    </div>
+
+    <button id="helpBtn" class="help-btn" title="Keyboard Shortcuts">?</button>
+
+    <audio id="buttonClickSound" src="https://assets.mixkit.co/sfx/preview/mixkit-modern-technology-select-2866.mp3"
+        preload="auto"></audio>
+    <script src="js/script.js"></script>
+</body>
+
+</html>

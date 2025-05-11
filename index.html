@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Evgeniy Gutman - Professional programmer and developer portfolio showcasing HTML, CSS, JavaScript and other programming projects.">
+    <title>Evgeniy Gutman - Portfolio</title>
+    <link rel="stylesheet" href="style/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+    <script src="script/burger.js" defer></script>
+    <script src="script/form.js" defer></script>
+    <script src="script/theme.js" defer></script>
+    <script src="script/tabs.js" defer></script>
+</head>
+
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="header-logo">
+                <img class="profile-pic logo" src="images/about-me.jpg" alt="My Profile Picture">
+                <h1 id="header-my-name">Evgeniy Gutman</h1>
+            </div>
+            <nav class="nav" id="nav-links">
+                <div class="nav-item"><a class="nav-link" href="#home" aria-current="page">Home</a></div>
+                <div class="nav-item"><a class="nav-link" href="#about">About Me</a></div>
+                <div class="nav-item"><a class="nav-link" href="#projects">Projects</a></div>
+                <div class="nav-item"><a class="nav-link" href="#contact">Contact</a></div>
+            </nav>
+            <div class="header-controls">
+                <button id="theme-toggle-btn" aria-label="Toggle dark/light mode">
+                    <span class="toggle-icon">🌓</span>
+                </button>
+                <button id="burger" aria-label="Toggle menu" aria-expanded="false">≡</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-spacer invisible"></div>
+    <main class="main container">
+        <section id="home">
+            <div id="home-content" class="section-content">
+                <h1 class="section-title">Plan, Code, Design, Launch!</h1>
+                <p class="section-paragraph">Looking for a professional programmer? Well, you came to the right
+                    place!<br>
+                    My name is <span class="bold-me">Evgeniy Gutman</span>, Nice to meet you! more info below...</p>
+            </div>
+        </section>
+
+        <section id="logos" class="container">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original-wordmark.svg"
+                class="logo" alt="HTML5" loading="lazy">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original-wordmark.svg"
+                class="logo" alt="CSS3" loading="lazy">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-plain.svg"
+                class="logo" alt="JavaScript" loading="lazy">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/c/c-original.svg" class="logo" alt="C"
+                loading="lazy">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-original.svg" class="logo"
+                alt="C#" loading="lazy">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg"
+                class="logo" alt="C++" loading="lazy">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original-wordmark.svg"
+                class="logo" alt="Java" loading="lazy">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original-wordmark.svg"
+                class="logo" alt="Python" loading="lazy">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original-wordmark.svg"
+                class="logo" alt="GitHub" loading="lazy">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/unrealengine/unrealengine-original-wordmark.svg"
+                class="logo" alt="Unreal Engine" loading="lazy">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/unity/unity-plain-wordmark.svg"
+                class="logo" alt="Unity" loading="lazy">
+        </section>
+
+        <section id="about">
+            <div class="section-content about-content">
+                <div class="about-image">
+                    <img src="images/about-me.jpg" alt="Evgeniy Gutman profile photo" class="about-me-image">
+                </div>
+                <div class="about-text">
+                    <h1 class="section-title">About Me</h1>
+                    <p class="section-paragraph about-me-paragraph">I am a dedicated and honest individual with a
+                        strong passion for programming, which I have been developing since high
+                        school.
+                        <br>I enjoy problem-solving, continuously learning new technologies, and refining my coding
+                        skills. <br><br>
+                        My technical expertise includes front-end development with HTML, CSS, and JavaScript, as well as
+                        back-end development using C#, Python, and Java. I'm proficient in game development with
+                        Unity and Unreal Engine, and version control with Git/GitHub.
+                        <br><br>
+                        I value integrity, honesty and professionalism. Outside of work, I have a deep
+                        appreciation for video games, especially co-op.
+                    </p>
+                    <a href="EvgeniyGutman-CV.pdf" download>
+                        <button class="download-cv-button">Download CV</button>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects">
+            <div class="section-content">
+                <h1 class="section-title">My Projects</h1>
+
+                <div class="tab-container">
+                    <div class="tab-nav" role="tablist">
+                        <button class="tab-nav-item active" id="tab-html-css" role="tab" aria-selected="true"
+                            aria-controls="panel-html-css">HTML & CSS</button>
+                        <button class="tab-nav-item" id="tab-javascript" role="tab" aria-selected="false"
+                            aria-controls="panel-javascript">JavaScript</button>
+                    </div>
+
+                    <div class="tab-content">
+                        <!-- HTML & CSS Tab Panel -->
+                        <div id="panel-html-css" class="tab-panel active" role="tabpanel"
+                            aria-labelledby="tab-html-css">
+                            <div class="projects-row">
+                                <article class="project-item">
+                                    <img src="projects/HTML-CSS/project1/images/Screenshot.png"
+                                        alt="Here & Now gradient form project screenshot" class="project-image"
+                                        loading="lazy">
+                                    <div class="project-content">
+                                        <h2 class="project-title">Here & Now</h2>
+                                        <p class="project-description">Simple form with gradient background</p>
+                                        <div class="project-button-container">
+                                            <a href="projects/HTML-CSS/project1/transition.html">
+                                                <button class="project-button">View Project</button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </article>
+                                <article class="project-item">
+                                    <img src="projects/HTML-CSS/project2/images/Screenshot.png"
+                                        alt="Good morning coffee responsive form screenshot" class="project-image"
+                                        loading="lazy">
+                                    <div class="project-content">
+                                        <h2 class="project-title">Good morning coffee</h2>
+                                        <p class="project-description">Responsive form with coffee theme styling</p>
+                                        <div class="project-button-container">
+                                            <a href="projects/HTML-CSS/project2/transition.html">
+                                                <button class="project-button">View Project</button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </article>
+                                <article class="project-item">
+                                    <img src="projects/HTML-CSS/project3/images/Screenshot.png"
+                                        alt="Discover the World grid layout screenshot" class="project-image"
+                                        loading="lazy">
+                                    <div class="project-content">
+                                        <h2 class="project-title">Discover the World</h2>
+                                        <p class="project-description">Responsive grid layout for travel destinations
+                                        </p>
+                                        <div class="project-button-container">
+                                            <a href="projects/HTML-CSS/project3/transition.html">
+                                                <button class="project-button">View Project</button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                            <div class="projects-row">
+                                <article class="project-item">
+                                    <img src="projects/HTML-CSS/project4/images/Screenshot.png"
+                                        alt="Drink Invitation form interface screenshot" class="project-image"
+                                        loading="lazy">
+                                    <div class="project-content">
+                                        <h2 class="project-title">Drink Invitation</h2>
+                                        <p class="project-description">Interactive invitation form with beverage
+                                            selection and RSVP features</p>
+                                        <div class="project-button-container">
+                                            <a href="projects/HTML-CSS/project4/transition.html">
+                                                <button class="project-button">View Project</button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
+
+                        <!-- JavaScript Tab Panel -->
+                        <div id="panel-javascript" class="tab-panel" role="tabpanel" aria-labelledby="tab-javascript"
+                            hidden>
+                            <div class="projects-row">
+                                <article class="project-item">
+                                    <img src="projects/JavaScript/To-do-list/images/screenshot.png"
+                                        alt="Todo List App screenshot" class="project-image" loading="lazy">
+                                    <div class="project-content">
+                                        <h2 class="project-title">Todo List App</h2>
+                                        <p class="project-description">Interactive task management app with local
+                                            storage that allows you to add, edit, complete, and filter tasks</p>
+                                        <div class="project-button-container">
+                                            <a href="projects/JavaScript/To-do-list/transition.html">
+                                                <button class="project-button">View Project</button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </article>
+                                <article class="project-item">
+                                    <img src="projects/JavaScript/Simple-Calculator/images/screenshot.png"
+                                        alt="Simple Calculator App screenshot" class="project-image" loading="lazy">
+                                    <div class="project-content">
+                                        <h2 class="project-title">CalcX Calculator</h2>
+                                        <p class="project-description">Advanced calculator with multiple modes, themes,
+                                            and keyboard shortcuts</p>
+                                        <div class="project-button-container">
+                                            <a href="projects/JavaScript/Simple-Calculator/transition.html">
+                                                <button class="project-button">View Project</button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </article>
+                                <article class="project-item">
+                                    <img src="projects/JavaScript/IksI-Igul/images/screenshot.png"
+                                        alt="Tic Tac Toe Game screenshot" class="project-image" loading="lazy">
+                                    <div class="project-content">
+                                        <h2 class="project-title">Tic Tac Toe Game</h2>
+                                        <p class="project-description">Classic game with AI opponent, multiple
+                                            difficulty levels, and modern UI</p>
+                                        <div class="project-button-container">
+                                            <a href="projects/JavaScript/IksI-Igul/transition.html">
+                                                <button class="project-button">View Project</button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="section-content">
+                <div class="background-image"></div>
+                <div class="contact-form-container">
+                    <h1 class="section-title">Contact Me</h1>
+                    <div class="social-links">
+                        <a href="https://github.com/" target="_blank" rel="noopener noreferrer"
+                            aria-label="GitHub Profile">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg"
+                                alt="GitHub" class="social-icon">
+                        </a>
+                        <a href="https://linkedin.com/" target="_blank" rel="noopener noreferrer"
+                            aria-label="LinkedIn Profile">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linkedin/linkedin-original.svg"
+                                alt="LinkedIn" class="social-icon">
+                        </a>
+                    </div>
+                    <form id="contact-form" class="contact-form">
+                        <div>
+                            <label for="name">Name:</label>
+                            <input type="text" id="name" name="name" placeholder="First and Last name" required>
+                            <span class="error-message" id="name-error"></span>
+                        </div>
+                        <div>
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" name="email" placeholder="example@mail.com" required>
+                            <span class="error-message" id="email-error"></span>
+                        </div>
+                        <div>
+                            <label for="tel">Phone Number:</label>
+                            <input type="tel" id="tel" name="tel" placeholder="123-456-7890"
+                                pattern="^[0-9-+\s()]{6,16}">
+                            <span class="error-message" id="tel-error"></span>
+                        </div>
+                        <div>
+                            <label for="message">Message:</label>
+                            <textarea id="message" name="message" rows="4" placeholder="Your message here..."
+                                required></textarea>
+                            <span class="error-message" id="message-error"></span>
+                        </div>
+                        <div>
+                            <button type="submit" id="submit-btn">Send</button>
+                        </div>
+                        <div id="form-status" class="form-status" aria-live="polite"></div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="container">
+        <p>&copy; 2025 Evgeniy Gutman. All rights reserved.</p>
+    </footer>
+
+    <!-- Schema.org structured data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Evgeniy Gutman",
+        "url": "https://evgeniygutman.com",
+        "jobTitle": "Programmer",
+        "knowsAbout": ["HTML", "CSS", "JavaScript", "C#", "Python", "Java", "Unity", "Unreal Engine"],
+        "image": "images/about-me.jpg",
+        "sameAs": [
+            "https://github.com/",
+            "https://linkedin.com/"
+        ]
+    }
+    </script>
+</body>
+
+</html>
