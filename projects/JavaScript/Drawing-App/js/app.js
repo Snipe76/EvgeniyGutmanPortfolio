@@ -278,10 +278,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Save image
     saveImgBtn.addEventListener("click", () => {
+        // Create a temporary canvas to ensure the white background is included
+        const tempCanvas = document.createElement('canvas');
+        tempCanvas.width = canvas.width;
+        tempCanvas.height = canvas.height;
+        const tempCtx = tempCanvas.getContext('2d');
+
+        // First fill the entire temporary canvas with white background
+        tempCtx.fillStyle = '#ffffff';
+        tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
+
+        // Then draw the original canvas content on top
+        tempCtx.drawImage(canvas, 0, 0);
+
         // Create a temporary link element
         const link = document.createElement("a");
         link.download = `drawing-${Date.now()}.png`;
-        link.href = canvas.toDataURL();
+        // Use the temporary canvas for the data URL
+        link.href = tempCanvas.toDataURL('image/png');
         // Trigger a click on the link to download the image
         link.click();
     });

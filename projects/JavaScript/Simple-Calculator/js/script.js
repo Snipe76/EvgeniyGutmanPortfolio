@@ -300,11 +300,6 @@ function appendInput(value) {
         }
     }
 
-    // Prevent duplicate parentheses
-    if ((value === '(' || value === ')') && currentExpression.endsWith(value)) {
-        return;
-    }
-
     currentExpression += value;
     updateDisplay();
 }
@@ -889,57 +884,85 @@ function initEventListeners() {
             playClickSound();
             hapticFeedback();
 
-            const value = button.dataset.value || button.textContent;
+            // Get the button value from data-value or data-action attributes
+            const value = button.dataset.value;
+            const action = button.dataset.action;
 
-            // Prevent parentheses from being duplicated
-            if ((value === '(' || value === ')') &&
-                currentExpression.endsWith(value)) {
-                return;
-            }
-
-            // Special button actions
-            switch (value) {
-                case 'C':
-                    clearAll();
-                    break;
-                case 'CE':
-                    clearEntry();
-                    break;
-                case 'del':
-                    deleteLast();
-                    break;
-                case '=':
-                    calculate();
-                    break;
-                case 'MC':
-                    memoryClear();
-                    break;
-                case 'MR':
-                    memoryRecall();
-                    break;
-                case 'M+':
-                    memoryAdd();
-                    break;
-                case 'M-':
-                    memorySubtract();
-                    break;
-                case 'MS':
-                    memoryStore();
-                    break;
-                case 'backspace':
-                    let val = fromValue.value;
-                    if (val.length > 0) {
-                        fromValue.value = val.slice(0, -1);
+            // Handle action buttons first
+            if (action) {
+                switch (action) {
+                    case 'all-clear':
+                        clearAll();
+                        break;
+                    case 'clear-entry':
+                    case 'CE':
+                        clearEntry();
+                        break;
+                    case 'delete':
+                        deleteLast();
+                        break;
+                    case 'calculate':
+                        calculate();
+                        break;
+                    case 'memory-clear':
+                        memoryClear();
+                        break;
+                    case 'memory-recall':
+                        memoryRecall();
+                        break;
+                    case 'memory-add':
+                        memoryAdd();
+                        break;
+                    case 'memory-subtract':
+                        memorySubtract();
+                        break;
+                    case 'memory-store':
+                        memoryStore();
+                        break;
+                    case 'backspace':
+                        let val = fromValue.value;
+                        if (val.length > 0) {
+                            fromValue.value = val.slice(0, -1);
+                            convertUnits();
+                        }
+                        break;
+                    case 'clear':
+                        fromValue.value = '';
+                        toValue.value = '';
+                        break;
+                    case 'convert':
                         convertUnits();
+                        break;
+                }
+            }
+            // Handle data-value buttons (numbers, operators, parentheses)
+            else if (value) {
+                // Check for parentheses duplication
+                if ((value === '(' || value === ')' || value === '((' || value === '))') &&
+                    (currentExpression.endsWith('(') && (value === '(' || value === '((')) ||
+                    (currentExpression.endsWith(')') && (value === ')' || value === '))'))) {
+                    return;
+                }
+
+                // Special handling for double parentheses
+                if (value === '((') {
+                    appendInput('(');
+                } else if (value === '))') {
+                    appendInput(')');
+                } else {
+                    appendInput(value);
+                }
+            }
+            // Handle converter inputs
+            else if (button.dataset.input) {
+                if (activeTab === 'converter') {
+                    if (button.dataset.input === '-') {
+                        fromValue.value = parseFloat(fromValue.value || 0) * -1;
+                    } else {
+                        fromValue.value += button.dataset.input;
                     }
-                    break;
-                case 'clear':
-                    fromValue.value = '';
-                    toValue.value = '';
-                    break;
-                case 'convert':
                     convertUnits();
-                    break;
+                }
             }
         });
     });
