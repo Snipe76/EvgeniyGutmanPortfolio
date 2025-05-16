@@ -6,7 +6,8 @@ import { Storage } from './storage.js';
 import { StateManager } from './state.js';
 import { UIRenderer } from './ui.js';
 
-(async () => {
+// Ensure DOM is fully loaded before initializing
+document.addEventListener('DOMContentLoaded', async () => {
     const listId = initRouter();
 
     // Load all available lists
@@ -25,4 +26,11 @@ import { UIRenderer } from './ui.js';
     // Initialize UI
     const ui = new UIRenderer(stateManager);
     ui.attachEventListeners();
-})(); 
+
+    console.log('To-Do List application initialized');
+});
+
+// Legacy IIFE initialization (now disabled)
+// (async () => {
+//     // Old initialization code
+// })(); 

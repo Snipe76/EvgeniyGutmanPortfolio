@@ -10,7 +10,8 @@ export class UIRenderer {
         this.listElem = document.querySelector('.task-list');
         this.headerTitle = document.querySelector('.header__title');
         this.filterButtons = document.querySelectorAll('.header__filter');
-        this.addButton = document.querySelector('.add-task-button');
+        this.addButton = document.getElementById('add-task-button') || document.querySelector('.add-task-button');
+        console.log('Add button found:', this.addButton); // Debug line
         this.taskModal = document.getElementById('task-modal');
         this.taskForm = document.getElementById('task-form');
         this.cancelTaskButton = document.getElementById('cancel-task');
@@ -176,7 +177,15 @@ export class UIRenderer {
         });
 
         // Add Task
-        this.addButton.addEventListener('click', () => this._openAddTaskModal());
+        if (this.addButton) {
+            console.log('Attaching click listener to add button');
+            this.addButton.addEventListener('click', () => {
+                console.log('Add button clicked');
+                this._openAddTaskModal();
+            });
+        } else {
+            console.error('Add button not found in DOM');
+        }
 
         // Task Form
         this.taskForm.addEventListener('submit', (e) => {
