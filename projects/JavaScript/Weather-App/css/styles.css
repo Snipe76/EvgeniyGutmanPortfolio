@@ -1,0 +1,431 @@
+/* 
+ * Weather App Styles
+ * Following Apple's Human Interface Guidelines
+ */
+
+/* CSS Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Typography */
+    --font-primary: -apple-system, BlinkMacSystemFont, "San Francisco", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+    /* Colors */
+    --color-text: #333333;
+    --color-text-secondary: #666666;
+    --color-background: #ffffff;
+    --color-card: rgba(255, 255, 255, 0.85);
+    --color-border: rgba(0, 0, 0, 0.1);
+    --color-accent: #007aff;
+    /* Apple's blue */
+
+    /* Layout */
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 18px;
+
+    /* Shadows */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+}
+
+html,
+body {
+    height: 100%;
+    font-family: var(--font-primary);
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--color-text);
+    background-color: #f5f5f7;
+    /* Light gray background like Apple's sites */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100%;
+    padding: var(--spacing-md);
+}
+
+.weather-app {
+    width: 100%;
+    max-width: 480px;
+    background: var(--color-background);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+    position: relative;
+    transition: background-color var(--transition-normal);
+}
+
+/* Weather Themes */
+.theme-clear-day {
+    background: linear-gradient(to bottom, #90dffe, #38a3d1);
+    color: white;
+}
+
+.theme-clear-night {
+    background: linear-gradient(to bottom, #172941, #3a6073);
+    color: white;
+}
+
+.theme-cloudy {
+    background: linear-gradient(to bottom, #b6beca, #808e9b);
+    color: white;
+}
+
+.theme-rain {
+    background: linear-gradient(to bottom, #4b6cb7, #182848);
+    color: white;
+}
+
+.theme-snow {
+    background: linear-gradient(to bottom, #e6e6e6, #aebfcf);
+    color: #333;
+}
+
+.theme-thunder {
+    background: linear-gradient(to bottom, #2c3e50, #4a235a);
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.theme-thunder::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(rgba(255, 255, 255, 0.1), transparent 60%);
+    opacity: 0;
+    animation: lightning 10s infinite;
+}
+
+@keyframes lightning {
+
+    0%,
+    9.9%,
+    10.9%,
+    11.9%,
+    100% {
+        opacity: 0;
+    }
+
+    10%,
+    11%,
+    12% {
+        opacity: 1;
+    }
+
+    50%,
+    59.9%,
+    60.9%,
+    61.9% {
+        opacity: 0;
+    }
+
+    60%,
+    61%,
+    62% {
+        opacity: 0.75;
+    }
+}
+
+/* Header Styles */
+.app-header {
+    padding: var(--spacing-lg) var(--spacing-lg) var(--spacing-md);
+    position: relative;
+    z-index: 1;
+}
+
+.app-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: var(--spacing-sm);
+}
+
+.location-info {
+    margin-bottom: var(--spacing-md);
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.search-container {
+    margin-bottom: var(--spacing-md);
+}
+
+.search-container form {
+    display: flex;
+    align-items: center;
+}
+
+.search-container input {
+    flex: 1;
+    border: none;
+    border-radius: var(--radius-md);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    color: inherit;
+    font-size: 1rem;
+    outline: none;
+    transition: background var(--transition-fast);
+}
+
+.search-container input::placeholder {
+    color: currentColor;
+    opacity: 0.7;
+}
+
+.search-container input:focus {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.search-container button {
+    background: transparent;
+    border: none;
+    padding: var(--spacing-sm);
+    margin-left: var(--spacing-sm);
+    cursor: pointer;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-icon {
+    fill: currentColor;
+    opacity: 0.8;
+}
+
+/* Weather Display */
+.weather-display {
+    padding: var(--spacing-lg);
+}
+
+.current-conditions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: var(--spacing-xl);
+    text-align: center;
+}
+
+.temperature-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--spacing-md);
+}
+
+.weather-icon {
+    width: 80px;
+    height: 80px;
+    margin-right: var(--spacing-md);
+}
+
+.temperature h2 {
+    font-size: 3.5rem;
+    font-weight: 300;
+    line-height: 1;
+}
+
+.temperature p {
+    font-size: 1rem;
+    opacity: 0.8;
+}
+
+.condition-info h2 {
+    font-size: 1.5rem;
+    margin-bottom: var(--spacing-xs);
+    font-weight: 500;
+}
+
+.condition-info p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    text-transform: capitalize;
+}
+
+/* Weather Details Section */
+.weather-details {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-xl);
+}
+
+.detail-card {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-md);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.detail-icon {
+    margin-bottom: var(--spacing-sm);
+}
+
+.detail-icon svg {
+    fill: currentColor;
+    opacity: 0.8;
+    width: 24px;
+    height: 24px;
+}
+
+.detail-info h3 {
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-bottom: var(--spacing-xs);
+    opacity: 0.8;
+}
+
+.detail-info p {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+/* Location Button */
+.location-permission {
+    display: flex;
+    justify-content: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.location-button {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.25);
+    border: none;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border-radius: var(--radius-md);
+    color: inherit;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background var(--transition-fast);
+}
+
+.location-button:hover {
+    background: rgba(255, 255, 255, 0.35);
+}
+
+.location-icon {
+    margin-right: var(--spacing-sm);
+    fill: currentColor;
+}
+
+/* Loading and Error States */
+.loading-indicator,
+.error-message {
+    text-align: center;
+    padding: var(--spacing-xl);
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top: 3px solid #ffffff;
+    border-radius: 50%;
+    margin: 0 auto var(--spacing-md);
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.hidden {
+    display: none;
+}
+
+/* Footer */
+.app-footer {
+    text-align: center;
+    padding: var(--spacing-md);
+    font-size: 0.8rem;
+    opacity: 0.8;
+}
+
+.app-footer a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px dotted currentColor;
+}
+
+/* Responsive Styles */
+@media (max-width: 480px) {
+    .container {
+        padding: 0;
+    }
+
+    .weather-app {
+        height: 100%;
+        max-width: 100%;
+        border-radius: 0;
+    }
+
+    .weather-details {
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--spacing-sm);
+    }
+
+    .detail-card {
+        padding: var(--spacing-sm);
+    }
+
+    .temperature h2 {
+        font-size: 3rem;
+    }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-text: #ffffff;
+        --color-text-secondary: #bbbbbb;
+        --color-background: #1c1c1e;
+        --color-card: rgba(30, 30, 30, 0.8);
+        --color-border: rgba(255, 255, 255, 0.1);
+    }
+
+    html,
+    body {
+        background-color: #000000;
+    }
+
+    .search-container input {
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    .search-container input:focus {
+        background: rgba(255, 255, 255, 0.15);
+    }
+}

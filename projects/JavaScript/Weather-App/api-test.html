@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenWeatherMap API Test</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "San Francisco", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #007aff;
+        }
+
+        pre {
+            background-color: #f5f5f7;
+            padding: 15px;
+            border-radius: 8px;
+            overflow: auto;
+            max-height: 400px;
+        }
+
+        button {
+            background-color: #007aff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        button:hover {
+            background-color: #0062cc;
+        }
+
+        .success {
+            color: #34c759;
+            font-weight: bold;
+        }
+
+        .error {
+            color: #ff3b30;
+            font-weight: bold;
+        }
+
+        .result-container {
+            margin-top: 20px;
+        }
+
+        .status {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>OpenWeatherMap API Connection Test</h1>
+
+    <p>This page tests if the connection to the OpenWeatherMap API is working correctly with your API key.</p>
+
+    <button id="test-button">Run API Test</button>
+
+    <div class="result-container">
+        <div id="status" class="status"></div>
+        <pre id="result">Results will appear here after running the test...</pre>
+    </div>
+
+    <script src="js/api-test.js"></script>
+    <script>
+        document.getElementById('test-button').addEventListener('click', async () => {
+            const statusEl = document.getElementById('status');
+            const resultEl = document.getElementById('result');
+
+            statusEl.textContent = 'Testing API connection...';
+            statusEl.className = 'status';
+            resultEl.textContent = 'Running test...';
+
+            try {
+                const result = await testApiConnection();
+
+                if (result.success) {
+                    statusEl.textContent = '✅ Connection Successful!';
+                    statusEl.className = 'status success';
+                    resultEl.textContent = 'API Response:\n\n' + JSON.stringify(result.data, null, 2);
+                } else {
+                    statusEl.textContent = '❌ Connection Failed!';
+                    statusEl.className = 'status error';
+                    resultEl.textContent = 'Error: ' + result.error;
+                }
+            } catch (error) {
+                statusEl.textContent = '❌ Test Error!';
+                statusEl.className = 'status error';
+                resultEl.textContent = 'Error running test: ' + error.message;
+            }
+        });
+    </script>
+</body>
+
+</html>

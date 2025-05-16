@@ -1,0 +1,4 @@
+This is a placeholder for the app screenshot.
+
+Please replace this file with an actual screenshot of your Weather App once it's running.
+For example, you can name it 'screenshot.png' as referenced in the README.md file. 

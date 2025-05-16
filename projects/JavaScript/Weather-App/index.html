@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A weather application with real-time weather updates based on your location">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- System font (San Francisco on Apple devices, fallbacks for others) -->
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+    <div class="container">
+        <div class="weather-app">
+            <header class="app-header">
+                <h1 class="app-title">Weather</h1>
+                <div class="location-info">
+                    <p id="current-date"></p>
+                </div>
+                <div class="search-container">
+                    <form id="search-form">
+                        <input type="text" id="city-input" placeholder="Search location" aria-label="Enter city name">
+                        <button type="submit" id="search-button" aria-label="Search">
+                            <svg class="search-icon" viewBox="0 0 24 24" width="24" height="24">
+                                <path
+                                    d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+            </header>
+
+            <div id="loading-indicator" class="hidden">
+                <div class="loading-spinner"></div>
+                <p>Getting weather information...</p>
+            </div>
+
+            <div id="error-message" class="hidden">
+                <p>Unable to find that location. Please try again.</p>
+            </div>
+
+            <main id="weather-display" class="weather-display hidden">
+                <section class="current-conditions">
+                    <div class="temperature-container">
+                        <img id="weather-icon" alt="Weather condition icon" class="weather-icon">
+                        <div class="temperature">
+                            <h2 id="temperature"></h2>
+                            <p id="feels-like"></p>
+                        </div>
+                    </div>
+                    <div class="condition-info">
+                        <h2 id="city-name"></h2>
+                        <p id="weather-description"></p>
+                    </div>
+                </section>
+
+                <section class="weather-details">
+                    <div class="detail-card">
+                        <div class="detail-icon">
+                            <svg viewBox="0 0 24 24" width="24" height="24">
+                                <path
+                                    d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6M12,8A4,4 0 0,1 16,12A4,4 0 0,1 12,16A4,4 0 0,1 8,12A4,4 0 0,1 12,8Z" />
+                            </svg>
+                        </div>
+                        <div class="detail-info">
+                            <h3>Humidity</h3>
+                            <p id="humidity"></p>
+                        </div>
+                    </div>
+
+                    <div class="detail-card">
+                        <div class="detail-icon">
+                            <svg viewBox="0 0 24 24" width="24" height="24">
+                                <path
+                                    d="M4,10A1,1 0 0,1 3,9A1,1 0 0,1 4,8H12A2,2 0 0,0 14,6A2,2 0 0,0 12,4C11.45,4 10.95,4.22 10.59,4.59C10.2,5 9.56,5 9.17,4.59C8.78,4.2 8.78,3.56 9.17,3.17C9.9,2.45 10.9,2 12,2A4,4 0 0,1 16,6A4,4 0 0,1 12,10H4M19,12A1,1 0 0,0 20,11A1,1 0 0,0 19,10C18.72,10 18.47,10.11 18.29,10.29C17.9,10.68 17.27,10.68 16.88,10.29C16.5,9.9 16.5,9.27 16.88,8.88C17.42,8.34 18.17,8 19,8A3,3 0 0,1 22,11A3,3 0 0,1 19,14H5A1,1 0 0,1 4,13A1,1 0 0,1 5,12H19M18,18H4A1,1 0 0,1 3,17A1,1 0 0,1 4,16H18A3,3 0 0,1 21,19A3,3 0 0,1 18,22C17.17,22 16.42,21.66 15.88,21.12C15.5,20.73 15.5,20.1 15.88,19.71C16.27,19.32 16.9,19.32 17.29,19.71C17.47,19.89 17.72,20 18,20A1,1 0 0,0 19,19A1,1 0 0,0 18,18Z" />
+                            </svg>
+                        </div>
+                        <div class="detail-info">
+                            <h3>Wind</h3>
+                            <p id="wind-speed"></p>
+                        </div>
+                    </div>
+
+                    <div class="detail-card">
+                        <div class="detail-icon">
+                            <svg viewBox="0 0 24 24" width="24" height="24">
+                                <path
+                                    d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M12,10.5A1.5,1.5 0 0,1 13.5,12A1.5,1.5 0 0,1 12,13.5A1.5,1.5 0 0,1 10.5,12A1.5,1.5 0 0,1 12,10.5M7.5,10.5A1.5,1.5 0 0,1 9,12A1.5,1.5 0 0,1 7.5,13.5A1.5,1.5 0 0,1 6,12A1.5,1.5 0 0,1 7.5,10.5M16.5,10.5A1.5,1.5 0 0,1 18,12A1.5,1.5 0 0,1 16.5,13.5A1.5,1.5 0 0,1 15,12A1.5,1.5 0 0,1 16.5,10.5Z" />
+                            </svg>
+                        </div>
+                        <div class="detail-info">
+                            <h3>Pressure</h3>
+                            <p id="pressure"></p>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            <div class="location-permission">
+                <button id="use-location" class="location-button">
+                    <svg class="location-icon" viewBox="0 0 24 24" width="16" height="16">
+                        <path
+                            d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3A8.994 8.994 0 0 0 13 3.06V1h-2v2.06A8.994 8.994 0 0 0 3.06 11H1v2h2.06A8.994 8.994 0 0 0 11 20.94V23h2v-2.06A8.994 8.994 0 0 0 20.94 13H23v-2h-2.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z" />
+                    </svg>
+                    Use my location
+                </button>
+            </div>
+
+            <footer class="app-footer">
+                <p>Data provided by <a href="https://openweathermap.org/" target="_blank"
+                        rel="noopener noreferrer">OpenWeather</a></p>
+            </footer>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+
+</html>
