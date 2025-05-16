@@ -135,6 +135,7 @@ body {
     align-items: center;
     min-height: 100vh;
     padding: 20px;
+    flex-direction: column;
 }
 
 .app-container {
