@@ -392,6 +392,7 @@ textarea:focus-visible {
     filter: grayscale(0%);
     opacity: 1;
     border-color: rgba(19, 232, 241, 0.2);
+    background-color: rgb(255, 255, 255);
     box-shadow: 0 0 15px rgba(19, 232, 241, 0.1);
 }
 
@@ -628,7 +629,7 @@ textarea:focus-visible {
     width: 50vw;
     height: 50vh;
     position: absolute;
-    top: -8%;
+    top: -6%;
     right: 0;
     z-index: -1;
 }
@@ -824,6 +825,7 @@ footer {
     filter: brightness(1) grayscale(0%);
     opacity: 1;
     border-color: rgba(19, 232, 241, 0.3);
+    background-color: rgb(255, 255, 255);
     box-shadow: 0 0 15px rgba(19, 232, 241, 0.15);
 }
 
@@ -999,7 +1001,7 @@ footer {
     #contact .background-image {
         width: 70vw;
         height: 30vh;
-        top: -6%;
+        top: -4%;
         right: -20px;
     }
 
