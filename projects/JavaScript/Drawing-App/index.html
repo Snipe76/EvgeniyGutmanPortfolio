@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drawing App</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <section class="tools-board">
+            <div class="row">
+                <label class="title">Shapes</label>
+                <ul class="options">
+                    <li class="option tool" id="rectangle">
+                        <i class="fa-regular fa-square"></i>
+                        <span>Rectangle</span>
+                    </li>
+                    <li class="option tool" id="circle">
+                        <i class="fa-regular fa-circle"></i>
+                        <span>Circle</span>
+                    </li>
+                    <li class="option tool" id="triangle">
+                        <i class="fa-solid fa-play fa-rotate-270"></i>
+                        <span>Triangle</span>
+                    </li>
+                    <li class="option tool" id="line">
+                        <i class="fa-solid fa-slash"></i>
+                        <span>Line</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="row">
+                <label class="title">Options</label>
+                <ul class="options">
+                    <li class="option active tool" id="brush">
+                        <i class="fa-solid fa-paintbrush"></i>
+                        <span>Brush</span>
+                    </li>
+                    <li class="option tool" id="eraser">
+                        <i class="fa-solid fa-eraser"></i>
+                        <span>Eraser</span>
+                    </li>
+                    <li class="option tool" id="bucket">
+                        <i class="fa-solid fa-fill-drip"></i>
+                        <span>Fill</span>
+                    </li>
+                    <li class="option">
+                        <input type="range" id="size-slider" min="1" max="30" value="5">
+                        <span class="size-value">5</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="row">
+                <label class="title">Colors</label>
+                <div class="color-picker-wrapper">
+                    <input type="color" id="color-picker" value="#ffffff">
+                    <label for="color-picker">Select Color</label>
+                </div>
+                <div class="quick-colors">
+                    <span class="color" style="background: #ffffff; border: 1px solid #ccc"></span>
+                    <span class="color" style="background: #ff0000"></span>
+                    <span class="color" style="background: #008000"></span>
+                    <span class="color" style="background: #0000ff"></span>
+                    <span class="color" style="background: #ffff00"></span>
+                    <span class="color" style="background: #000000"></span>
+                </div>
+                <div class="recent-colors">
+                    <label class="subtitle">Recent Colors</label>
+                    <div id="recent-colors-container" class="recent-colors-list">
+                        <!-- Recent colors will be added here dynamically -->
+                    </div>
+                </div>
+            </div>
+            <div class="row buttons">
+                <button class="clear-canvas">Clear Canvas</button>
+                <button class="save-img">Save As Image</button>
+            </div>
+        </section>
+        <section class="drawing-board">
+            <canvas></canvas>
+        </section>
+    </div>
+
+    <footer class="app-footer">
+        <p>&copy; 2025 Evgeniy Gutman. All rights reserved.</p>
+    </footer>
+
+    <script src="js/app.js"></script>
+</body>
+
+</html>

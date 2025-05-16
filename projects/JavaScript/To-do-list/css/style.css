@@ -134,7 +134,10 @@ body {
 /* Add Task Button */
 .add-task-container {
     padding: var(--spacing);
-    margin-bottom: var(--spacing) * 2;
+    margin-bottom: calc(var(--spacing) * 2);
+    position: relative;
+    z-index: 10;
+    /* Ensure it's above other elements */
 }
 
 .add-task-button {
@@ -150,10 +153,17 @@ body {
     align-items: center;
     justify-content: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.2s, transform 0.1s;
+    outline: none;
 }
 
 .add-task-button:hover {
     opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+.add-task-button:active {
+    transform: translateY(0);
 }
 
 /* Footer */
