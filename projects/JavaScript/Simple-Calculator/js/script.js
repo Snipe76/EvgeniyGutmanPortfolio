@@ -300,6 +300,11 @@ function appendInput(value) {
         }
     }
 
+    // Prevent duplicate parentheses
+    if ((value === '(' || value === ')') && currentExpression.endsWith(value)) {
+        return;
+    }
+
     currentExpression += value;
     updateDisplay();
 }
@@ -670,6 +675,8 @@ function setAccentColor(color) {
         btn.classList.toggle('active', btn.dataset.color === color);
     });
 
+    document.documentElement.style.setProperty('--accent-color', color);
+
     updateSettings();
 }
 
@@ -871,59 +878,52 @@ function loadSavedData() {
     initEventListeners();
 }
 
-tabButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-        playClickSound();
-        hapticFeedback();
-        setActiveTab(btn.dataset.tab);
-    });
-});
+function initEventListeners() {
+    buttons.forEach(button => {
+        button.addEventListener('click', () => {
+            if (settings.buttonEffects) {
+                addButtonAnimation(button);
+            }
 
-buttons.forEach(btn => {
-    btn.addEventListener('click', () => {
-        playClickSound();
-        hapticFeedback();
+            // Play sound and vibration feedback
+            playClickSound();
+            hapticFeedback();
 
-        if (settings.buttonEffects) {
-            addButtonAnimation(btn);
-        }
+            const value = button.dataset.value || button.textContent;
 
-        const value = btn.dataset.value;
-        const action = btn.dataset.action;
-        const input = btn.dataset.input;
+            // Prevent parentheses from being duplicated
+            if ((value === '(' || value === ')') &&
+                currentExpression.endsWith(value)) {
+                return;
+            }
 
-        if (value) {
-            appendInput(value);
-        } else if (action) {
-            switch (action) {
-                case 'all-clear':
+            // Special button actions
+            switch (value) {
+                case 'C':
                     clearAll();
                     break;
-                case 'clear-entry':
+                case 'CE':
                     clearEntry();
                     break;
-                case 'delete':
+                case 'del':
                     deleteLast();
                     break;
-                case 'calculate':
+                case '=':
                     calculate();
                     break;
-                case 'percent':
-                    appendInput('*0.01');
-                    break;
-                case 'memory-clear':
+                case 'MC':
                     memoryClear();
                     break;
-                case 'memory-recall':
+                case 'MR':
                     memoryRecall();
                     break;
-                case 'memory-add':
+                case 'M+':
                     memoryAdd();
                     break;
-                case 'memory-subtract':
+                case 'M-':
                     memorySubtract();
                     break;
-                case 'memory-store':
+                case 'MS':
                     memoryStore();
                     break;
                 case 'backspace':
@@ -941,207 +941,293 @@ buttons.forEach(btn => {
                     convertUnits();
                     break;
             }
-        } else if (input) {
-            if (activeTab === 'converter') {
-                if (input === '-') {
-                    fromValue.value = parseFloat(fromValue.value || 0) * -1;
-                } else {
-                    fromValue.value += input;
-                }
-                convertUnits();
-            }
-        }
+        });
     });
-});
 
-settingsBtn.addEventListener('click', () => {
-    playClickSound();
-    hapticFeedback();
-    toggleSettingsPanel();
-});
+    tabButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            playClickSound();
+            hapticFeedback();
+            setActiveTab(btn.dataset.tab);
+        });
+    });
 
-closeSettings.addEventListener('click', () => {
-    playClickSound();
-    hapticFeedback();
-    toggleSettingsPanel();
-});
-
-themeToggle.addEventListener('click', () => {
-    playClickSound();
-    hapticFeedback();
-    toggleTheme();
-});
-
-helpBtn.addEventListener('click', () => {
-    playClickSound();
-    hapticFeedback();
-    toggleShortcuts();
-});
-
-closeShortcuts.addEventListener('click', () => {
-    playClickSound();
-    hapticFeedback();
-    toggleShortcuts();
-});
-
-fontSizeSlider.addEventListener('input', (e) => {
-    settings.fontSize = parseInt(e.target.value);
-    fontSizeValue.textContent = `${settings.fontSize}%`;
-    updateSettings();
-});
-
-decimalPlaces.addEventListener('change', (e) => {
-    settings.decimalPlaces = e.target.value;
-    updateSettings();
-    if (resultDisplayed) {
-        updateDisplay();
-    }
-});
-
-themeButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
+    settingsBtn.addEventListener('click', () => {
         playClickSound();
         hapticFeedback();
-        settings.theme = btn.dataset.theme;
+        toggleSettingsPanel();
+    });
 
-        themeButtons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
+    closeSettings.addEventListener('click', () => {
+        playClickSound();
+        hapticFeedback();
+        toggleSettingsPanel();
+    });
 
+    themeToggle.addEventListener('click', () => {
+        playClickSound();
+        hapticFeedback();
+        toggleTheme();
+    });
+
+    helpBtn.addEventListener('click', () => {
+        playClickSound();
+        hapticFeedback();
+        toggleShortcuts();
+    });
+
+    closeShortcuts.addEventListener('click', () => {
+        playClickSound();
+        hapticFeedback();
+        toggleShortcuts();
+    });
+
+    fontSizeSlider.addEventListener('input', (e) => {
+        settings.fontSize = parseInt(e.target.value);
+        fontSizeValue.textContent = `${settings.fontSize}%`;
         updateSettings();
     });
-});
 
-colorButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-        playClickSound();
-        hapticFeedback();
-        setAccentColor(btn.dataset.color);
-    });
-});
-
-degButton.addEventListener('click', () => {
-    playClickSound();
-    hapticFeedback();
-    settings.isRadians = false;
-    updateSettings();
-});
-
-radButton.addEventListener('click', () => {
-    playClickSound();
-    hapticFeedback();
-    settings.isRadians = true;
-    updateSettings();
-});
-
-soundToggle.addEventListener('change', () => {
-    settings.soundEnabled = soundToggle.checked;
-    updateSettings();
-    if (settings.soundEnabled) {
-        playClickSound();
-    }
-});
-
-hapticToggle.addEventListener('change', () => {
-    settings.hapticEnabled = hapticToggle.checked;
-    updateSettings();
-    if (settings.hapticEnabled) {
-        hapticFeedback();
-    }
-});
-
-clearHistory.addEventListener('click', () => {
-    playClickSound();
-    hapticFeedback();
-    clearHistoryData();
-});
-
-converterCategory.addEventListener('change', () => {
-    playClickSound();
-    hapticFeedback();
-    updateConverterUnits();
-});
-
-fromValue.addEventListener('input', () => {
-    convertUnits();
-});
-
-fromUnit.addEventListener('change', () => {
-    playClickSound();
-    hapticFeedback();
-    convertUnits();
-});
-
-toUnit.addEventListener('change', () => {
-    playClickSound();
-    hapticFeedback();
-    convertUnits();
-});
-
-swapUnits.addEventListener('click', () => {
-    playClickSound();
-    hapticFeedback();
-    swapConversionUnits();
-});
-
-baseButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-        playClickSound();
-        hapticFeedback();
-        setNumberBase(btn.dataset.base);
-    });
-});
-
-wordButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-        playClickSound();
-        hapticFeedback();
-        setWordSize(btn.dataset.word);
-    });
-});
-
-document.addEventListener('keydown', (e) => {
-    if (isPanelOpen) {
-        if (e.key === 'Escape') {
-            if (settingsPanel.classList.contains('active')) {
-                toggleSettingsPanel();
-            }
-            if (keyboardShortcuts.classList.contains('active')) {
-                toggleShortcuts();
-            }
+    decimalPlaces.addEventListener('change', (e) => {
+        settings.decimalPlaces = e.target.value;
+        updateSettings();
+        if (resultDisplayed) {
+            updateDisplay();
         }
-        return;
-    }
+    });
 
-    if (/^[0-9]$/.test(e.key)) {
-        appendInput(e.key);
-    } else if (['+', '-', '*', '/', '.', '(', ')'].includes(e.key)) {
-        appendInput(e.key);
-    } else if (e.key === '^') {
-        appendInput('^');
-    } else if (e.key === '%') {
-        appendInput('*0.01');
-    } else if (e.key === 'Enter' || e.key === '=') {
-        calculate();
-    } else if (e.key === 'Backspace') {
-        deleteLast();
-    } else if (e.key === 'Escape') {
-        clearAll();
-    } else if (e.key === '?') {
-        toggleShortcuts();
-    } else if (e.key === 'z' && (e.ctrlKey || e.metaKey)) {
-        if (currentExpression) {
+    themeButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            playClickSound();
+            hapticFeedback();
+            settings.theme = btn.dataset.theme;
+
+            themeButtons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            updateSettings();
+        });
+    });
+
+    colorButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            playClickSound();
+            hapticFeedback();
+            setAccentColor(btn.dataset.color);
+        });
+    });
+
+    degButton.addEventListener('click', () => {
+        playClickSound();
+        hapticFeedback();
+        settings.isRadians = false;
+        updateSettings();
+    });
+
+    radButton.addEventListener('click', () => {
+        playClickSound();
+        hapticFeedback();
+        settings.isRadians = true;
+        updateSettings();
+    });
+
+    soundToggle.addEventListener('change', () => {
+        settings.soundEnabled = soundToggle.checked;
+        updateSettings();
+        if (settings.soundEnabled) {
+            playClickSound();
+        }
+    });
+
+    hapticToggle.addEventListener('change', () => {
+        settings.hapticEnabled = hapticToggle.checked;
+        updateSettings();
+        if (settings.hapticEnabled) {
+            hapticFeedback();
+        }
+    });
+
+    clearHistory.addEventListener('click', () => {
+        playClickSound();
+        hapticFeedback();
+        clearHistoryData();
+    });
+
+    converterCategory.addEventListener('change', () => {
+        playClickSound();
+        hapticFeedback();
+        updateConverterUnits();
+    });
+
+    fromValue.addEventListener('input', () => {
+        convertUnits();
+    });
+
+    fromUnit.addEventListener('change', () => {
+        playClickSound();
+        hapticFeedback();
+        convertUnits();
+    });
+
+    toUnit.addEventListener('change', () => {
+        playClickSound();
+        hapticFeedback();
+        convertUnits();
+    });
+
+    swapUnits.addEventListener('click', () => {
+        playClickSound();
+        hapticFeedback();
+        swapConversionUnits();
+    });
+
+    baseButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            playClickSound();
+            hapticFeedback();
+            setNumberBase(btn.dataset.base);
+        });
+    });
+
+    wordButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            playClickSound();
+            hapticFeedback();
+            setWordSize(btn.dataset.word);
+        });
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (isPanelOpen) {
+            if (e.key === 'Escape') {
+                if (settingsPanel.classList.contains('active')) {
+                    toggleSettingsPanel();
+                }
+                if (keyboardShortcuts.classList.contains('active')) {
+                    toggleShortcuts();
+                }
+            }
+            return;
+        }
+
+        if (/^[0-9]$/.test(e.key)) {
+            appendInput(e.key);
+        } else if (['+', '-', '*', '/', '.', '(', ')'].includes(e.key)) {
+            appendInput(e.key);
+        } else if (e.key === '^') {
+            appendInput('^');
+        } else if (e.key === '%') {
+            appendInput('*0.01');
+        } else if (e.key === 'Enter' || e.key === '=') {
+            calculate();
+        } else if (e.key === 'Backspace') {
             deleteLast();
+        } else if (e.key === 'Escape') {
+            clearAll();
+        } else if (e.key === '?') {
+            toggleShortcuts();
+        } else if (e.key === 'z' && (e.ctrlKey || e.metaKey)) {
+            if (currentExpression) {
+                deleteLast();
+            }
+        }
+    });
+
+    let lastTap = 0;
+    mainDisplay.addEventListener('touchend', (e) => {
+        const currentTime = new Date().getTime();
+        const tapLength = currentTime - lastTap;
+
+        if (tapLength < 500 && tapLength > 0) {
+            copyDisplayValue();
+            e.preventDefault();
+        }
+        lastTap = currentTime;
+    });
+
+    mainDisplay.addEventListener('dblclick', copyDisplayValue);
+
+    document.addEventListener('click', handleOutsideClick);
+    document.addEventListener('touchend', handleOutsideClick);
+
+    const calculatorWrapper = document.querySelector('.calculator-wrapper');
+    let touchstartX = 0;
+    let touchendX = 0;
+
+    calculatorWrapper.addEventListener('touchstart', e => {
+        touchstartX = e.changedTouches[0].screenX;
+    });
+
+    calculatorWrapper.addEventListener('touchend', e => {
+        touchendX = e.changedTouches[0].screenX;
+        handleSwipeGesture();
+    });
+
+    function handleSwipeGesture() {
+        const threshold = 75;
+        const tabs = ['scientific', 'programmer', 'converter', 'history'];
+        const currentTabIndex = tabs.indexOf(activeTab);
+
+        if (touchendX < touchstartX - threshold) {
+            const nextTabIndex = (currentTabIndex + 1) % tabs.length;
+            setActiveTab(tabs[nextTabIndex]);
+            playClickSound();
+            if (settings.hapticEnabled) hapticFeedback();
+        }
+
+        if (touchendX > touchstartX + threshold) {
+            const prevTabIndex = (currentTabIndex - 1 + tabs.length) % tabs.length;
+            setActiveTab(tabs[prevTabIndex]);
+            playClickSound();
+            if (settings.hapticEnabled) hapticFeedback();
         }
     }
-});
+}
 
-loadSavedData();
-clearAll();
-setActiveTab('scientific');
-updateConverterUnits();
+function copyDisplayValue() {
+    const textToCopy = mainDisplay.textContent;
 
-document.addEventListener('click', handleOutsideClick);
-document.addEventListener('touchend', handleOutsideClick);
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(textToCopy)
+            .then(() => showCopyFeedback('Copied!'))
+            .catch(err => showCopyFeedback('Failed to copy'));
+    } else {
+        const textArea = document.createElement('textarea');
+        textArea.value = textToCopy;
+        textArea.style.position = 'fixed';
+        textArea.style.opacity = 0;
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+
+        try {
+            const successful = document.execCommand('copy');
+            showCopyFeedback(successful ? 'Copied!' : 'Failed to copy');
+        } catch (err) {
+            showCopyFeedback('Failed to copy');
+        }
+
+        document.body.removeChild(textArea);
+    }
+}
+
+function showCopyFeedback(message) {
+    let feedbackElement = document.getElementById('copyFeedback');
+
+    if (!feedbackElement) {
+        feedbackElement = document.createElement('div');
+        feedbackElement.id = 'copyFeedback';
+        feedbackElement.className = 'copy-feedback';
+        document.body.appendChild(feedbackElement);
+    }
+
+    feedbackElement.textContent = message;
+    feedbackElement.classList.add('active');
+
+    setTimeout(() => {
+        feedbackElement.classList.remove('active');
+    }, 2000);
+}
 
 function handleOutsideClick(e) {
     if (e.type === 'touchend' &&
@@ -1350,99 +1436,10 @@ function createConfettiDemo() {
     }
 }
 
-function initEventListeners() {
-    let lastTap = 0;
-    mainDisplay.addEventListener('touchend', (e) => {
-        const currentTime = new Date().getTime();
-        const tapLength = currentTime - lastTap;
+loadSavedData();
+clearAll();
+setActiveTab('scientific');
+updateConverterUnits();
 
-        if (tapLength < 500 && tapLength > 0) {
-            copyDisplayValue();
-            e.preventDefault();
-        }
-        lastTap = currentTime;
-    });
-
-    mainDisplay.addEventListener('dblclick', copyDisplayValue);
-
-    document.addEventListener('click', handleOutsideClick);
-    document.addEventListener('touchend', handleOutsideClick);
-
-    const calculatorWrapper = document.querySelector('.calculator-wrapper');
-    let touchstartX = 0;
-    let touchendX = 0;
-
-    calculatorWrapper.addEventListener('touchstart', e => {
-        touchstartX = e.changedTouches[0].screenX;
-    });
-
-    calculatorWrapper.addEventListener('touchend', e => {
-        touchendX = e.changedTouches[0].screenX;
-        handleSwipeGesture();
-    });
-
-    function handleSwipeGesture() {
-        const threshold = 75;
-        const tabs = ['scientific', 'programmer', 'converter', 'history'];
-        const currentTabIndex = tabs.indexOf(activeTab);
-
-        if (touchendX < touchstartX - threshold) {
-            const nextTabIndex = (currentTabIndex + 1) % tabs.length;
-            setActiveTab(tabs[nextTabIndex]);
-            playClickSound();
-            if (settings.hapticEnabled) hapticFeedback();
-        }
-
-        if (touchendX > touchstartX + threshold) {
-            const prevTabIndex = (currentTabIndex - 1 + tabs.length) % tabs.length;
-            setActiveTab(tabs[prevTabIndex]);
-            playClickSound();
-            if (settings.hapticEnabled) hapticFeedback();
-        }
-    }
-}
-
-function copyDisplayValue() {
-    const textToCopy = mainDisplay.textContent;
-
-    if (navigator.clipboard && window.isSecureContext) {
-        navigator.clipboard.writeText(textToCopy)
-            .then(() => showCopyFeedback('Copied!'))
-            .catch(err => showCopyFeedback('Failed to copy'));
-    } else {
-        const textArea = document.createElement('textarea');
-        textArea.value = textToCopy;
-        textArea.style.position = 'fixed';
-        textArea.style.opacity = 0;
-        document.body.appendChild(textArea);
-        textArea.focus();
-        textArea.select();
-
-        try {
-            const successful = document.execCommand('copy');
-            showCopyFeedback(successful ? 'Copied!' : 'Failed to copy');
-        } catch (err) {
-            showCopyFeedback('Failed to copy');
-        }
-
-        document.body.removeChild(textArea);
-    }
-}
-
-function showCopyFeedback(message) {
-    let feedbackElement = document.getElementById('copyFeedback');
-
-    if (!feedbackElement) {
-        feedbackElement = document.createElement('div');
-        feedbackElement.id = 'copyFeedback';
-        feedbackElement.className = 'copy-feedback';
-        document.body.appendChild(feedbackElement);
-    }
-
-    feedbackElement.textContent = message;
-    feedbackElement.classList.add('active');
-
-    setTimeout(() => {
-        feedbackElement.classList.remove('active');
-    }, 2000);
-} 
+document.addEventListener('click', handleOutsideClick);
+document.addEventListener('touchend', handleOutsideClick); 

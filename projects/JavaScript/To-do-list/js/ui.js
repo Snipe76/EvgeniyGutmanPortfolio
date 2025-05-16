@@ -155,6 +155,12 @@ export class UIRenderer {
 
         // Switch to list when clicked
         item.addEventListener('click', () => {
+            // Update the active list in the UI immediately
+            document.querySelectorAll('.list-item').forEach(listItem => {
+                listItem.classList.remove('list-item--active');
+            });
+            item.classList.add('list-item--active');
+
             this.stateManager.switchList(list.id);
         });
 
